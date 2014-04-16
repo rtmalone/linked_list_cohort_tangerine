@@ -72,6 +72,7 @@ class LinkedList
   def []= (index, value)
     get_item(index).payload = value
   end
+
   def remove index
     item = @first_item
 
@@ -79,17 +80,15 @@ class LinkedList
     raise IndexError if (index < 0) or (index >= @size)
 
     if index != 0
-    # go to item previous to one being deleted
       (index-1).times {item = item.next_list_item}
       item.next_list_item = item.next_list_item.next_list_item
     else
-    #you are removing first item in list
+    #removing first item in list
       item = item.next_list_item
       @first_item = item
     end
 
-    #reduce size of list
-    @size = @size - 1
+    @size -= 1
   end
 
   def indexOf string
@@ -108,6 +107,21 @@ class LinkedList
     end
 
     return index
+  end
+
+  def sorted?
+    item = @first_item
+    until item.nil? or item.last?
+      return false if item > item.next_list_item
+      item = item.next_list_item
+    end
+    true
+  end
+
+  def sort
+    return "| |" if @first_item.nil?
+    item = @first_item
+    self.to_s
   end
 
   private
